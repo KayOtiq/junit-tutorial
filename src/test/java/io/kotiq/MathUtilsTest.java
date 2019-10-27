@@ -16,7 +16,9 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestReporter;
 
 	//11. Changing default behavior
 	@TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -33,8 +35,9 @@ class MathUtilsTest {
 		System.out.println("This will run before all tests in suite");
 	}
 	
+	
 	@BeforeEach  //initializing this will happen in each method
-	void init() {
+	void init(TestInfo testInfo, TestReporter testReporter) { // part 19 test info and test reporter
 		mathUtils = new MathUtils(); 
 	}
 	
