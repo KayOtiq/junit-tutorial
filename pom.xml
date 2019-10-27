@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>io.kotiq</groupId>
+  <artifactId>junit-tutorial</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  
+  <name>junit-tutorial</name>
+  <description>Simple project for learning java unit testing using JUnit 5</description>
+  
+  
+    <developers>
+        <developer>
+            <id>KO</id>
+            <name>Lynda Montanez</name>
+            <email>lyndamontanez@gmail.com</email>
+        </developer>
+    </developers>
+    
+    <inceptionYear>2019</inceptionYear>
+  
+  <properties>
+  
+		<java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target><!-- this upgrades this to java 11  -->
+		<junit.jupiter.version>5.5.2</junit.jupiter.version>
+	</properties>
+
+<dependencies><!-- junit dependencies BE SURE THESE ARE ADDED TO THE PROJECTS POM.XML -->
+	<dependency>
+	    <groupId>org.junit.platform</groupId>
+	    <artifactId>junit-platform-commons</artifactId>
+	    <version>1.5.2</version><!--$NO-MVN-MAN-VER$-->
+	    <scope>test</scope>
+	</dependency>
+	<dependency><!-- junit engine  -->
+		<groupId>org.junit.jupiter</groupId>
+		<artifactId>junit-jupiter-engine</artifactId>
+		<version>${junit.jupiter.version}</version>
+		<scope>test</scope> <!--  determines where the libraries are located.  these will be in the test scope and not the final distribution -->
+	</dependency>
+	<dependency><!-- junit platform  -->
+		<groupId>org.junit.jupiter</groupId>
+		<artifactId>junit-jupiter-api</artifactId>
+		<version>${junit.jupiter.version}</version>
+		<scope>test</scope>
+	</dependency>
+</dependencies>
+
+ <build>
+        <plugins>
+			<!-- THIS MUST BE ADDED OR JUnit 5 UNIT TESTS WILL NOT RUN -->
+            <!-- Need at least 2.22.0 to support JUnit 5 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+ 
+</project>
