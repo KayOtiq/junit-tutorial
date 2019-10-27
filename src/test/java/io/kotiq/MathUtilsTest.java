@@ -12,6 +12,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -43,6 +46,7 @@ class MathUtilsTest {
 	//14 Nested classes inside the test
 	@Nested
 	@DisplayName("when adding 2 positive numbers")
+	@Tag("Math") //#18
 	class AddTest {
 		@Test
 		@DisplayName("Testing  positive numbers") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
@@ -61,6 +65,7 @@ class MathUtilsTest {
 	}
 	
 	@Test
+	@Tag("Math")
 	@DisplayName("Testing Add Method") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
 	void testAdd() {
 		//create new instance
@@ -72,6 +77,7 @@ class MathUtilsTest {
 	}
 	
 	@Test
+	@Tag("Math")
 	void testAddFail() {
 		//create new instance
 		//MathUtils mathUtils = new MathUtils(); //part 10
@@ -92,12 +98,14 @@ class MathUtilsTest {
 	
 
 	@Test
+	@Tag("Math")
 	@DisplayName("Testing Add Method negative numbers") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
 	void testAddNegative() {
 		assertEquals(-2,mathUtils.add(-1, -1), "Add method should add two negative number and return correct results"); 
 	}
 	
 	@Test
+	@Tag("Math")
 	void testdivide() {
 		//create new instance
 		//MathUtils mathUtils = new MathUtils(); //part 10
@@ -116,12 +124,21 @@ class MathUtilsTest {
 	
 	
 	@Test
+	@Tag("Circle")
 	void testComputeCircleRadius() {
 		//create new instance
 		MathUtils mathUtils = new MathUtils(); //why are we calling this more than once?
 		
 		//int expected = 10;
 		//int actual = 314.1592653589; //removing unnecessary calls
+		assertEquals(314.1592653589793,mathUtils.computeCircleArea(10), "Didn't correctly calc area of circle"); //message when the test fails
+	}
+	
+	@RepeatedTest(3)
+	void testComputeCircleRadiusRepeat(RepetitionInfo repetitionInfo) {
+		
+		
+		
 		assertEquals(314.1592653589793,mathUtils.computeCircleArea(10), "Didn't correctly calc area of circle"); //message when the test fails
 	}
 	
