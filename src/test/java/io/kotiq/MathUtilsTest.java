@@ -27,7 +27,8 @@ import org.junit.jupiter.api.TestReporter;
 class MathUtilsTest {
 	
 	MathUtils mathUtils; //part 10 - removing the redundant initialization 
-	
+	TestInfo testInfo;
+	TestReporter testReporter;
 
 	
 	@BeforeAll
@@ -38,7 +39,12 @@ class MathUtilsTest {
 	
 	@BeforeEach  //initializing this will happen in each method
 	void init(TestInfo testInfo, TestReporter testReporter) { // part 19 test info and test reporter
+		this.testInfo = testInfo;
+		this.testReporter = testReporter;
+
 		mathUtils = new MathUtils(); 
+		testReporter.publishEntry("Running  " + testInfo.getDisplayName() + " with tags " + testInfo.getTags());
+
 	}
 	
 	@AfterEach
@@ -51,6 +57,8 @@ class MathUtilsTest {
 	@DisplayName("when adding 2 positive numbers")
 	@Tag("Math") //#18
 	class AddTest {
+	
+
 		@Test
 		@DisplayName("Testing  positive numbers") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
 		void testAddPositive() {
@@ -73,7 +81,8 @@ class MathUtilsTest {
 	void testAdd() {
 		//create new instance
 		//MathUtils mathUtils = new MathUtils();  //part 10
-		
+		System.out.println("Running  " + testInfo.getDisplayName() + " with tags " + testInfo.getTags());
+		testReporter.publishEntry("Running  " + testInfo.getDisplayName() + " with tags " + testInfo.getTags());
 		int expected = 2;
 		int actual = mathUtils.add(1, 1); 
 		assertEquals(expected,actual, "Add method should add two number and return correct results"); //message when the test fails
