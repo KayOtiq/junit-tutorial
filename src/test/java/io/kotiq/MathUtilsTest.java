@@ -23,7 +23,7 @@ class MathUtilsTest {
 		
 		int expected = 1;
 		int actual = mathUtils.add(1, 1); 
-		assertEquals(expected,actual, "Add method adds 2 numbers and validates does not return incorrect results"); //message when the test fails
+		assertNotEquals(expected,actual, "Add method adds 2 numbers and validates does not return incorrect results"); //message when the test fails
 	}
 	
 	@Test
