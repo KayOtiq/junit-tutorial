@@ -1,9 +1,12 @@
 package io.kotiq;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.*;
+
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -61,10 +64,16 @@ class MathUtilsTest {
 		//create new instance
 		//MathUtils mathUtils = new MathUtils(); //part 10
 		
+		
+		//#13 - Assumptions Example
+		boolean isServerUp = false;
+		Assumptions.assumeTrue(isServerUp);
+		
 		//this will test if a divide by zero occurs and if the wrong method is thrown
 		Assertions.assertThrows(ArithmeticException.class, () -> mathUtils.divide(1, 0), "divide by zero should throw exception");
 		
 		//Assertions.assertThrows(NullPointerException.class, () -> mathUtils.divide(1, 0), "divide by zero should throw exception"); //shows incorrect error msg
+		
 	}
 	
 	
@@ -79,7 +88,19 @@ class MathUtilsTest {
 	}
 	
 	@Test
-	@Disabled
+	@DisplayName("multiply method")
+	void testMultiply( ) {
+		//some code goes here to show failure
+		//assertEquals(4, mathUtils.multiply(2, 2), "should return correct method");
+		Assertions.assertAll(
+				() -> assertEquals(4, mathUtils.multiply(2, 2)),
+				() -> assertEquals(0, mathUtils.multiply(2, 0)),
+				() -> assertEquals(-2, mathUtils.multiply(2, -1))
+				);
+	}
+	
+	@Test
+	@Disabled //shows as a skipped test. u
 	@DisplayName("TDD method showing disble test")
 	void testDisabled( ) {
 		//some code goes here to show failure
