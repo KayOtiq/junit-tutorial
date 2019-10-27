@@ -2,6 +2,7 @@ package io.kotiq;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class MathUtilsTest {
@@ -25,6 +26,16 @@ class MathUtilsTest {
 		int actual = mathUtils.add(1, 1); 
 		assertNotEquals(expected,actual, "Add method adds 2 numbers and validates does not return incorrect results"); //message when the test fails
 	}
+	
+	@Test
+	void testdivide() {
+		//create new instance
+		MathUtils mathUtils = new MathUtils();
+		//this will test if a divide by zero occurs and if the wrong method is thrown
+		Assertions.assertThrows(ArithmeticException.class, () -> mathUtils.divide(1, 0), "divide by zero should throw exception");
+		//Assertions.assertThrows(NullPointerException.class, () -> mathUtils.divide(1, 0), "divide by zero should throw exception"); //shows incorrect error msg
+	}
+	
 	
 	@Test
 	void testComputeCircleRadius() {
