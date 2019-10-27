@@ -2,15 +2,35 @@ package io.kotiq;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class MathUtilsTest {
+	
+	MathUtils mathUtils; //part 10 - removing the redundant initialization 
+	
+	@BeforeAll
+	static void  beforeAllInit() {
+		System.out.println("This will run before all tests in suite");
+	}
+	
+	@BeforeEach  //initializing this will happen in each method
+	void init() {
+		mathUtils = new MathUtils(); 
+	}
+	
+	@AfterEach
+	void cleanup() {
+		System.out.println("Cleaning up...");
+	}
 
 	@Test
 	void testAdd() {
 		//create new instance
-		MathUtils mathUtils = new MathUtils();
+		//MathUtils mathUtils = new MathUtils();  //part 10
 		
 		int expected = 2;
 		int actual = mathUtils.add(1, 1); 
@@ -20,7 +40,7 @@ class MathUtilsTest {
 	@Test
 	void testAddFail() {
 		//create new instance
-		MathUtils mathUtils = new MathUtils();
+		//MathUtils mathUtils = new MathUtils(); //part 10
 		
 		int expected = 1;
 		int actual = mathUtils.add(1, 1); 
@@ -30,9 +50,11 @@ class MathUtilsTest {
 	@Test
 	void testdivide() {
 		//create new instance
-		MathUtils mathUtils = new MathUtils();
+		//MathUtils mathUtils = new MathUtils(); //part 10
+		
 		//this will test if a divide by zero occurs and if the wrong method is thrown
 		Assertions.assertThrows(ArithmeticException.class, () -> mathUtils.divide(1, 0), "divide by zero should throw exception");
+		
 		//Assertions.assertThrows(NullPointerException.class, () -> mathUtils.divide(1, 0), "divide by zero should throw exception"); //shows incorrect error msg
 	}
 	
