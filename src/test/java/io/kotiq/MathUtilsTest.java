@@ -11,12 +11,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 	//11. Changing default behavior
 	@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 	
+@DisplayName("Given running math utils")	
 class MathUtilsTest {
 	
 	MathUtils mathUtils; //part 10 - removing the redundant initialization 
@@ -38,6 +40,26 @@ class MathUtilsTest {
 		System.out.println("Cleaning up...");
 	}
 
+	//14 Nested classes inside the test
+	@Nested
+	@DisplayName("when adding 2 positive numbers")
+	class AddTest {
+		@Test
+		@DisplayName("Testing  positive numbers") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
+		void testAddPositive() {
+
+			assertEquals(2,mathUtils.add(1, 1), "should add two number and return correct results"); 
+		}
+		
+
+		@Test
+		@DisplayName("Testing  negative numbers") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
+		void testAddNegative() {
+			assertEquals(-2,mathUtils.add(-1, -1), " should add two negative number and return correct results"); 
+		}
+		
+	}
+	
 	@Test
 	@DisplayName("Testing Add Method") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
 	void testAdd() {
@@ -57,6 +79,22 @@ class MathUtilsTest {
 		int expected = 1;
 		int actual = mathUtils.add(1, 1); 
 		assertNotEquals(expected,actual, "Add method adds 2 numbers and validates does not return incorrect results"); //message when the test fails
+	}
+	
+	
+		// Part 14 - nested classes - moved up
+	@Test
+	@DisplayName("Testing Add Method for positive numbers") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
+	void testAddPositive() {
+
+		assertEquals(2,mathUtils.add(1, 1), "Add method should add two number and return correct results"); 
+	}
+	
+
+	@Test
+	@DisplayName("Testing Add Method negative numbers") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
+	void testAddNegative() {
+		assertEquals(-2,mathUtils.add(-1, -1), "Add method should add two negative number and return correct results"); 
 	}
 	
 	@Test
