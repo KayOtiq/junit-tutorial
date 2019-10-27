@@ -6,11 +6,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
+	//11. Changing default behavior
+	@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+	
 class MathUtilsTest {
 	
 	MathUtils mathUtils; //part 10 - removing the redundant initialization 
+	
+
 	
 	@BeforeAll
 	static void  beforeAllInit() {
@@ -28,6 +36,7 @@ class MathUtilsTest {
 	}
 
 	@Test
+	@DisplayName("Testing Add Method") //part 12 - replaces method name in results to a more readable test name (allows use of spaces)
 	void testAdd() {
 		//create new instance
 		//MathUtils mathUtils = new MathUtils();  //part 10
@@ -67,6 +76,14 @@ class MathUtilsTest {
 		//int expected = 10;
 		//int actual = 314.1592653589; //removing unnecessary calls
 		assertEquals(314.1592653589793,mathUtils.computeCircleArea(10), "Didn't correctly calc area of circle"); //message when the test fails
+	}
+	
+	@Test
+	@Disabled
+	@DisplayName("TDD method showing disble test")
+	void testDisabled( ) {
+		//some code goes here to show failure
+		fail("this test should be disabled");
 	}
 
 
