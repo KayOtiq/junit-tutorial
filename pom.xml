@@ -25,7 +25,7 @@
 
 	<inceptionYear>2019</inceptionYear>
 
-	<profiles>
+	<!--profiles>
 		<profile>
 			<id>jenkins-build</id>
 			<activation>
@@ -43,7 +43,7 @@
 				<build.number>${env.BUILD_NUMBER}</build.number>
 			</properties>
 		</profile>
-	</profiles>
+	</profiles-->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
