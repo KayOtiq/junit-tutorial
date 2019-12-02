@@ -5,8 +5,9 @@
 
 	<groupId>io.kotiq</groupId>
 	<artifactId>junit-tutorial</artifactId>
-	<!--version>1.0.${build.number}-SNAPSHOT</version-->
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.${build.number}-SNAPSHOT</version>
+	<!--version>1.0.0-SNAPSHOT</version-->
+	 <!--version>${revision}</version-->
 
 	<packaging>jar</packaging>
 
@@ -25,7 +26,7 @@
 
 	<inceptionYear>2019</inceptionYear>
 
-	<!--profiles>
+	<profiles>
 		<profile>
 			<id>jenkins-build</id>
 			<activation>
@@ -43,7 +44,7 @@
 				<build.number>${env.BUILD_NUMBER}</build.number>
 			</properties>
 		</profile>
-	</profiles-->
+	</profiles>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -55,6 +56,8 @@
 		<nxrm3.staging.tag>${project.artifactId}-${project.version}</nxrm3.staging.tag>
 		<env.NEXUS_URL>http://localhost:8081</env.NEXUS_URL>
 		<build.number>local</build.number>
+		<revision>1.0.0-SNAPSHOT</revision>
+		
 
 	</properties>
 
