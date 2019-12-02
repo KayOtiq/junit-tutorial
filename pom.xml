@@ -5,7 +5,9 @@
 
 	<groupId>io.kotiq</groupId>
 	<artifactId>junit-tutorial</artifactId>
-	<version>1.0.${build.number}</version>
+	<!--version>1.0.${build.number}-SNAPSHOT</version-->
+	<version>1.0.0-SNAPSHOT</version>
+
 	<packaging>jar</packaging>
 
 	<name>junit-tutorial</name>
@@ -23,19 +25,25 @@
 
 	<inceptionYear>2019</inceptionYear>
 
-    <profiles>
-        <profile>
-            <id>jenkins-build</id>
-            <activation>
-                <property>
-                    <name>env.BUILD_NUMBER</name>
-                </property>
-            </activation>
-            <properties>
-                <build.number>${env.BUILD_NUMBER}</build.number>
-            </properties>
-        </profile>
-    </profiles>
+	<profiles>
+		<profile>
+			<id>jenkins-build</id>
+			<activation>
+				<property>
+					<name>env.BUILD_NUMBER</name>
+				</property>
+			</activation>
+			<repositories>
+				<repository>
+					<id>maven-group</id>
+					<url>${env.NEXUS_URL}/repository/maven-group/</url>
+				</repository>
+			</repositories>
+			<properties>
+				<build.number>${env.BUILD_NUMBER}</build.number>
+			</properties>
+		</profile>
+	</profiles>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,7 +55,7 @@
 		<nxrm3.staging.tag>${project.artifactId}-${project.version}</nxrm3.staging.tag>
 		<env.NEXUS_URL>http://localhost:8081</env.NEXUS_URL>
 		<build.number>local</build.number>
-		
+
 	</properties>
 
 	<dependencies>		<!-- junit dependencies BE SURE THESE ARE ADDED TO THE PROJECTS 
