@@ -1,66 +1,62 @@
-<!--install .m2 and add the settings.xml 
-also, go to sonatype learn and follow the first time installation and
-setup tutorial using the existing nexus repo
-check if there is a username/password on selenium that can be reused -->
-
-<settings>
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      https://maven.apache.org/xsd/settings-1.0.0.xsd">
   <mirrors>
     <mirror>
       <!--This sends everything else to /public -->
       <id>nexus</id>
       <mirrorOf>*</mirrorOf>
-      <url>http://localhost:8081/repository/maven-proxy-test/</url>
+      <url>http://localhost:8081/repository/maven-group</url>
     </mirror>
   </mirrors>
 
   <profiles>
     <profile>
       <id>nexus</id>
-      <!--Enable snapshots for the built in central repo to direct -->
-      <!--all requests to nexus via the mirror -->
+      <!--Override the repository (and pluginRepository) "central" from the Maven Super POM
+          to activate snapshots for both! -->
+      
       <repositories>
         <repository>
           <id>central</id>
           <url>http://central</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
         </repository>
       </repositories>
-      
+
       <pluginRepositories>
         <pluginRepository>
           <id>central</id>
           <url>http://central</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
         </pluginRepository>
       </pluginRepositories>
     </profile>
   </profiles>
+
   <activeProfiles>
     <!--make the profile active all the time -->
     <activeProfile>nexus</activeProfile>
   </activeProfiles>
+
+  <pluginGroups>
+    <pluginGroup>org.sonatype.plugins</pluginGroup>
+  </pluginGroups>
+
+  <servers>
+    <server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>KQ!473h19%lD</password>
+    </server>
+      <id>snapshots</id>
+      <username>admin</username>
+      <password>KQ!473h19%lD</password>
+    </server>
+  </servers>
+
 </settings>
 
-<servers>
-  <server>
-  <!-- These may need to be renamed 'nexus' instead of 'releases' and 'snapshots'-->
-    <id>releases</id>
-    <username>admin</username>
-    <password>KQ!473h19%lD</password>
-  </server>
-  <server>
-    <id>snapshots</id>
-    <username>admin</username>
-    <password>KQ!473h19%lD</password>
-  </server>
-</servers>
