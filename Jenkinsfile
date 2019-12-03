@@ -17,7 +17,7 @@ pipeline {
         NEXUS_REPOSITORY = "nexus_tutorial"
         // Jenkins credential id to authenticate to Nexus OSS
         NEXUS_CREDENTIAL_ID = "admin"
-        VERSION = VersionNumber([versionNumberString : '1.0.${BUILD_ID}', projectStartDate : '']);
+        VERSION = VersionNumber([versionNumberString : '1.0.${BUILD_NUMBER}', projectStartDate : '']);
         ARTIFACT_ID = 'junit-tutorial'
         GROUP_ID = 'io.kotiq'
         PACKAGING = 'jar'
@@ -26,6 +26,7 @@ pipeline {
     stages {
         stage("--- Clean ---"){
             steps{
+                echo  "Build_Number: ${BUILD_NUMBER}"
                bat "mvn clean"
             }
         }
@@ -49,7 +50,7 @@ pipeline {
                 packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', 
                 filePath:  "$WORKSPACE\\target\\$ARTIFACT_ID-${BUILD_NUMBER}-SNAPSHOT.$PACKAGING"]], 
                 mavenCoordinate: [artifactId: "$ARTIFACT_ID", groupId: "$GROUP_ID", packaging: "$PACKAGING", version: "${BUILD_NUMBER}"]]]
-                
+               
             }
         }
         stage('--- Results ---') {
