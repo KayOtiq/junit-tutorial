@@ -17,16 +17,17 @@ pipeline {
         NEXUS_REPOSITORY = "nexus_tutorial"
         // Jenkins credential id to authenticate to Nexus OSS
         NEXUS_CREDENTIAL_ID = "admin"
-        VERSION = VersionNumber([versionNumberString : '1.0.${BUILD_ID}',   projectStartDate : '']);
-        //VERSION_NUMBER =  VersionNumber(['${BUILD_ID}', versionNumberString: '${BUILD_ID}', versionPrefix: '', worstResultForIncrement: 'SUCCESS'
-        FILEPATH = "$WORKSPACE\\target\\junit-tutorial-$Version-SNAPSHOT.jar"
+        VERSION = VersionNumber([versionNumberString : '1.0.${BUILD_ID}', projectStartDate : '']);
+        ARTIFACT_ID = 'junit-tutorial'
+        GROUP_ID = 'io.kotiq'
+        PACKAGING = 'jar'
+        
     }
     stages {
         stage("show version"){
             steps{
                 echo "Version: ${Version}"
                 echo "Workspace: ${WORKSPACE}"
-
             }
         }
         stage("clone code") {
@@ -41,26 +42,26 @@ pipeline {
             steps {
                 script {
                     // If you are using Windows then you should use "bat" step
-                    // Since unit testing is out of the scope we skip them
-                    bat "mvn package" //-DskipTests=true"
+                    bat "mvn clean package -Drevision=1.0-${BUILD_NUMBER}-SNAPSHOT"
                 }
             }
         }
         stage("publish"){
             steps{
-                // echo "File Path: ${FilePath}"
-                nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'nexus_tutorial', 
+                nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: "${NEXUS_REPOSITORY}", 
                 packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', 
-                filePath:  "${WORKSPACE}\\target\\junit-tutorial-$Version-SNAPSHOT.jar"]], 
-                mavenCoordinate: [artifactId: 'junit-tutorial', groupId: 'io.kotiq', packaging: 'jar', version: "$Version"]]]
+                filePath:  "$WORKSPACE\\target\\$ARTIFACT_ID-$Version-SNAPSHOT.$PACKAGING"]], 
+                mavenCoordinate: [artifactId: "$ARTIFACT_ID", groupId: "$GROUP_ID", packaging: "$PACKAGING", version: "$Version"]]]
                 
             }
         }
         stage('Results') {
             steps{
                 junit '**/target/surefire-reports/TEST-*.xml'
-                archiveArtifacts  'target/*.jar'
-               //cleanWs notFailBuild: true
+                archiveArtifacts  "target/*.$PACKAGING"
+               // perform workspace cleanup only if the build have passed
+            // if the build has failed, the workspace will be kept
+            //cleanWs cleanWhenFailure: false
             }
         }
    }               
