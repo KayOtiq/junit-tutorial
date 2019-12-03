@@ -26,7 +26,7 @@ pipeline {
     stages {
         stage("--- Clean ---"){
             steps{
-                echo  "Build_Number: ${BUILD_NUMBER}"
+                echo  "version: ${VERSION}"
                bat "mvn clean"
             }
         }
@@ -40,7 +40,7 @@ pipeline {
         stage("--- Package Project ---") {
             steps {
                 script {
-                    bat "mvn package -Drevision=1.0-${BUILD_NUMBER}-SNAPSHOT"
+                    bat "mvn package -Drevision=${VERSION}-SNAPSHOT"
                 }
             }
         }
@@ -48,8 +48,8 @@ pipeline {
             steps{
                 nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: "${NEXUS_REPOSITORY}", 
                 packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', 
-                filePath:  "$WORKSPACE\\target\\$ARTIFACT_ID-${BUILD_NUMBER}-SNAPSHOT.$PACKAGING"]], 
-                mavenCoordinate: [artifactId: "$ARTIFACT_ID", groupId: "$GROUP_ID", packaging: "$PACKAGING", version: "${BUILD_NUMBER}"]]]
+                filePath:  "$WORKSPACE\\target\\$ARTIFACT_ID-${VERSION}-SNAPSHOT.$PACKAGING"]], 
+                mavenCoordinate: [artifactId: "$ARTIFACT_ID", groupId: "$GROUP_ID", packaging: "$PACKAGING", version: "${VERSION}"]]]
                
             }
         }
