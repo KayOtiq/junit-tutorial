@@ -47,8 +47,8 @@ pipeline {
             steps{
                 nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: "${NEXUS_REPOSITORY}", 
                 packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', 
-                filePath:  "$WORKSPACE\\target\\$ARTIFACT_ID-$Version-SNAPSHOT.$PACKAGING"]], 
-                mavenCoordinate: [artifactId: "$ARTIFACT_ID", groupId: "$GROUP_ID", packaging: "$PACKAGING", version: "$Version"]]]
+                filePath:  "$WORKSPACE\\target\\$ARTIFACT_ID-${BUILD_NUMBER}-SNAPSHOT.$PACKAGING"]], 
+                mavenCoordinate: [artifactId: "$ARTIFACT_ID", groupId: "$GROUP_ID", packaging: "$PACKAGING", version: "${BUILD_NUMBER}"]]]
                 
             }
         }
