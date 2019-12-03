@@ -24,29 +24,26 @@ pipeline {
         
     }
     stages {
-        stage("show version"){
+        stage("--- Clean ---"){
             steps{
-                echo "Version: ${Version}"
-                echo "Workspace: ${WORKSPACE}"
+               bat "mvn clean"
             }
         }
-        stage("clone code") {
+        stage("--- Run Unit Tests ---") {
             steps {
                 script {
-                    // Let's clone the source
-                    git 'https://github.com/KayOtiq/junit-tutorial';
+                   bat "mvn test"
                 }
             }
         }
-        stage("mvn build") {
+        stage("--- Package Project ---") {
             steps {
                 script {
-                    // If you are using Windows then you should use "bat" step
-                    bat "mvn clean package -Drevision=1.0-${BUILD_NUMBER}-SNAPSHOT"
+                    bat "mvn package -Drevision=1.0-${BUILD_NUMBER}-SNAPSHOT"
                 }
             }
         }
-        stage("publish"){
+        stage("--- Publish ---"){
             steps{
                 nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: "${NEXUS_REPOSITORY}", 
                 packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', 
@@ -55,7 +52,7 @@ pipeline {
                 
             }
         }
-        stage('Results') {
+        stage('--- Results ---') {
             steps{
                 junit '**/target/surefire-reports/TEST-*.xml'
                 archiveArtifacts  "target/*.$PACKAGING"

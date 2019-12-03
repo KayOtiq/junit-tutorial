@@ -60,7 +60,12 @@ pipeline {
             steps{
                 junit '**/target/surefire-reports/TEST-*.xml'
                 archiveArtifacts  'target/*.jar'
+                //clean the workspace if the build has not failed
                //cleanWs notFailBuild: true
+
+               // perform workspace cleanup only if the build have passed
+            // if the build has failed, the workspace will be kept
+            //cleanWs cleanWhenFailure: false
             }
         }
    }               
